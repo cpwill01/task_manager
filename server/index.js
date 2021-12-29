@@ -2,19 +2,19 @@ import express from "express";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
 import cors from "cors";
-
+import dotenv from "dotenv";
 import taskRoutes from "./routes/tasks.js";
 import { appendFileSync } from "fs";
 
 const app = express();
+dotenv.config({ path: "./mongo.env" });
 
-app.use("/tasks", taskRoutes);
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cors());
+app.use("/tasks", taskRoutes);
 
-const CONNECTION_URL =
-  "mongodb+srv://cpwill:123qwe4r5t@cluster0.tg28w.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
+const CONNECTION_URL = process.env.CONNECTION_STRING;
 const PORT = process.env.PORT || 5000;
 
 mongoose

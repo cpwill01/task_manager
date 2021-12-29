@@ -4,7 +4,7 @@ const taskSchema = mongoose.Schema({
   title: String,
   description: String,
   creator: String,
-  tags: [String],
+  team: String,
   pirority: String,
   createdAt: {
     type: Date,
