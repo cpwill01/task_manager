@@ -5,13 +5,13 @@ const taskSchema = mongoose.Schema({
   description: String,
   creator: String,
   team: String,
-  pirority: String,
+  priority: String,
   createdAt: {
     type: Date,
     default: new Date(),
   },
 });
 
-const TaskItem = mongoose.model("TaskMessage", taskSchema);
+const TaskItem = mongoose.model("TaskItem", taskSchema);
 
 export default TaskItem;

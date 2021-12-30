@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
 import { useDispatch } from "react-redux";
 
-import { getTasks } from "./actions/tasksAction";
+import { getTasks } from "./actions/TaskAction";
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./views/Home";
 

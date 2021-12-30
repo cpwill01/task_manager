@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-// import { useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { alpha } from "@mui/material/styles";
 import {
   Box,
@@ -292,8 +292,8 @@ export default function TaskList() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-  // const tasks = useSelector((state) => state.tasksReducer);
-  // console.log(tasks);
+  const tasks = useSelector((state) => state.tasksReducer);
+  console.log(tasks);
 
   return (
     <Box sx={{ width: "100%" }}>

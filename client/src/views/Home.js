@@ -1,6 +1,12 @@
 import React from "react";
 import TaskList from "../components/TaskList/TaskList";
+import Form from "../components/Form/Form";
 
-const Home = () => <TaskList />;
+const Home = () => (
+  <>
+    <Form />
+    <TaskList />
+  </>
+);
 
 export default Home;
