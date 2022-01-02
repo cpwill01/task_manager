@@ -78,9 +78,9 @@ const headCells = [
   },
   {
     id: "createdAt",
-    numeric: true,
+    numeric: false,
     disablePadding: false,
-    label: "Date created",
+    label: "Date created (yyyy-mm-dd)",
   },
   {
     id: "priority",
@@ -159,15 +159,13 @@ const EnhancedTableToolbar = () => {
   );
 };
 
-export default function TaskList() {
+export default function TaskList({ selected, setSelected }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
-  const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const dense = false;
   const rowsPerPage = 5;
   const rows = useSelector((state) => state.tasksReducer);
-  console.log(rows);
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
