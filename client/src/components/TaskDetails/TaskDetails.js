@@ -10,11 +10,19 @@ import {
   Toolbar,
   Grid,
 } from "@mui/material";
+import { useDispatch } from "react-redux";
 
 import useCommonStyles from "../styles";
+import { deleteTask } from "../../actions/TaskAction";
 
-const TaskDetails = ({ selected, setCurrentId }) => {
+const TaskDetails = ({ selected, setSelected, setCurrentId }) => {
   const commonClasses = useCommonStyles();
+  const dispatch = useDispatch();
+
+  const handleDelete = () => {
+    dispatch(deleteTask(selected._id));
+    setSelected([]);
+  };
   return selected.length !== 0 ? (
     <Box sx={{ minWidth: 275 }}>
       <Toolbar className={commonClasses.topBar}>
@@ -56,7 +64,12 @@ const TaskDetails = ({ selected, setCurrentId }) => {
               <Button size="small" variant="outlined" color="success">
                 Mark as Completed
               </Button>
-              <Button size="small" variant="outlined" color="error">
+              <Button
+                size="small"
+                variant="outlined"
+                color="error"
+                onClick={handleDelete}
+              >
                 Delete task
               </Button>
             </CardActions>

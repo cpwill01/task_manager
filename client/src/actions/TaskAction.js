@@ -29,3 +29,12 @@ export const updateTask = (id, task) => async (dispatch) => {
     console.log(error);
   }
 };
+
+export const deleteTask = (id) => async (dispatch) => {
+  try {
+    await api.deleteTask(id);
+    dispatch({ type: "DELETE", payload: id });
+  } catch (error) {
+    console.log(error);
+  }
+};

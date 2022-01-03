@@ -12,10 +12,10 @@ const Home = () => {
   const [selected, setSelected] = React.useState([]);
 
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(getTasks());
   }, [currentId, dispatch]);
+
   return (
     <Grid container spacing={1}>
       <Grid item xs={12} md={4} height={"100%"}>
@@ -26,10 +26,14 @@ const Home = () => {
         />
       </Grid>
       <Grid item xs={12} md={8} height={"100%"}>
-        <TaskList setSelected={setSelected} />
+        <TaskList selected={selected} setSelected={setSelected} />
       </Grid>
       <Grid item xs={12} height={"100%"}>
-        <TaskDetails selected={selected} setCurrentId={setCurrentId} />
+        <TaskDetails
+          selected={selected}
+          setSelected={setSelected}
+          setCurrentId={setCurrentId}
+        />
       </Grid>
     </Grid>
   );

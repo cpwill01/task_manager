@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-import { alpha } from "@mui/material/styles";
 import {
   Box,
   Table,
@@ -15,7 +14,6 @@ import {
   Toolbar,
   Typography,
   Paper,
-  Checkbox,
   IconButton,
   Tooltip,
 } from "@mui/material";
@@ -151,7 +149,7 @@ const EnhancedTableToolbar = () => {
   );
 };
 
-export default function TaskList({ setSelected }) {
+export default function TaskList({ selected, setSelected }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("createdAt");
   const [page, setPage] = React.useState(0);
