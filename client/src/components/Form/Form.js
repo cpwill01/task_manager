@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   TextField,
   Button,
@@ -11,13 +11,12 @@ import {
   Toolbar,
   Box,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
-
+import { useDispatch, useSelector } from "react-redux";
 import useFormStyles from "./FormStyles";
 import useCommonStyles from "../styles";
-import { createTask } from "../../actions/TaskAction";
+import { createTask, updateTask } from "../../actions/TaskAction";
 
-const Form = () => {
+const Form = ({ currentId, setCurrentId, setSelected }) => {
   const [taskData, setTaskData] = useState({
     title: "",
     description: "",
@@ -28,28 +27,46 @@ const Form = () => {
   });
   const formClasses = useFormStyles();
   const commonClasses = useCommonStyles();
+  const task = useSelector((state) =>
+    currentId ? state.tasksReducer.find((t) => t._id === currentId) : null
+  );
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (task) {
+      setTaskData(task);
+    }
+  }, [task]);
+
+  const clear = () => {
+    setCurrentId(null);
+    setTaskData({
+      title: "",
+      description: "",
+      creator: "",
+      team: "",
+      priority: "",
+      createdAt: "",
+    });
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    taskData.createdAt = new Date();
-    dispatch(createTask(taskData));
+    if (currentId) {
+      dispatch(updateTask(currentId, taskData));
+      setSelected([]);
+    } else {
+      taskData.createdAt = new Date();
+      dispatch(createTask(taskData));
+    }
+    clear();
   };
 
   return (
     <Paper height="100%">
       <Toolbar className={commonClasses.topBar}>
-        {
-          <Typography
-            sx={{ flex: "1 1 100%" }}
-            fontSize="1.2rem"
-            id="formTitleText"
-            component="div"
-            align="center"
-          >
-            Add a task
-          </Typography>
-        }
+        <Typography className={commonClasses.barTitle} id="formTitleText">
+          {currentId ? "Updating " : "Add "}a task
+        </Typography>
       </Toolbar>
       <form
         autoComplete="off"
@@ -120,8 +137,18 @@ const Form = () => {
           color="primary"
           size="large"
           type="submit"
+          fullWidth
         >
           Submit
+        </Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          size="small"
+          onClick={clear}
+          fullWidth
+        >
+          Clear
         </Button>
       </form>
     </Paper>

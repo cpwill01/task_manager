@@ -1,18 +1,10 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
-import { getTasks } from "./actions/TaskAction";
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./views/Home";
 
 const App = () => {
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getTasks());
-  }, [dispatch]);
-
   return (
     <div>
       <NavBar />

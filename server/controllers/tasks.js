@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import TaskItem from "../models/taskItem.js";
 
 export const getTasks = async (req, res) => {
@@ -17,6 +18,21 @@ export const createTask = async (req, res) => {
     await newTask.save();
     res.status(201).json(newTask);
   } catch (error) {
-    res.status(409).json({ message: error.mssage });
+    res.status(409).json({ message: error.message });
   }
+};
+
+export const updateTask = async (req, res) => {
+  const { id } = req.params;
+  const task = req.body;
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).send("No such task found.");
+  }
+
+  const updatedTask = { ...task, _id: id };
+
+  await TaskItem.findByIdAndUpdate(id, updatedTask, { new: true });
+
+  res.json(updatedTask);
 };

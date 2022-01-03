@@ -25,8 +25,6 @@ import { visuallyHidden } from "@mui/utils";
 
 import useCommonStyles from "../styles";
 
-import Task from "./Task/Task";
-
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
     return -1;
@@ -138,14 +136,8 @@ const EnhancedTableToolbar = () => {
   return (
     <Toolbar className={commonClasses.topBar}>
       {
-        <Typography
-          sx={{ flex: "1 1 100%" }}
-          fontSize="1.2rem"
-          id="tableTitle"
-          component="div"
-          align="center"
-        >
-          Task List (click task for details)
+        <Typography className={commonClasses.barTitle} id="tableTitle">
+          Task List
         </Typography>
       }
       {
@@ -159,12 +151,12 @@ const EnhancedTableToolbar = () => {
   );
 };
 
-export default function TaskList({ selected, setSelected }) {
+export default function TaskList({ setSelected }) {
   const [order, setOrder] = React.useState("asc");
-  const [orderBy, setOrderBy] = React.useState("calories");
+  const [orderBy, setOrderBy] = React.useState("createdAt");
   const [page, setPage] = React.useState(0);
   const dense = false;
-  const rowsPerPage = 5;
+  const rowsPerPage = 4;
   const rows = useSelector((state) => state.tasksReducer);
 
   const handleRequestSort = (event, property) => {
@@ -173,13 +165,13 @@ export default function TaskList({ selected, setSelected }) {
     setOrderBy(property);
   };
 
-  const handleClick = (event, name) => {};
+  const handleClick = (event, row) => {
+    setSelected(row);
+  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
-
-  const isSelected = (name) => selected.indexOf(name) !== -1;
 
   // Avoid a layout jump when reaching the last page with empty rows.
   const emptyRows =
@@ -190,11 +182,7 @@ export default function TaskList({ selected, setSelected }) {
       <Paper sx={{ width: "100%", mb: 2 }}>
         <EnhancedTableToolbar />
         <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
-          >
+          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
             <EnhancedTableHead
               order={order}
               orderBy={orderBy}
@@ -202,29 +190,17 @@ export default function TaskList({ selected, setSelected }) {
               rowCount={rows.length}
             />
             <TableBody>
-              {/* if you don't need to support IE11, you can replace the `stableSort` call with:
-                 rows.slice().sort(getComparator(order, orderBy)) */}
               {stableSort(rows, getComparator(order, orderBy))
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((row, index) => {
-                  const isItemSelected = isSelected(row.name);
-                  const labelId = `enhanced-table-${index}`;
-
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
-                      aria-checked={isItemSelected}
+                      onClick={(event) => handleClick(event, row)}
                       tabIndex={-1}
                       key={row.title}
-                      selected={isItemSelected}
                     >
-                      <TableCell
-                        component="th"
-                        id={labelId}
-                        scope="row"
-                        padding="normal"
-                      >
+                      <TableCell component="th" scope="row" padding="normal">
                         {row.title}
                       </TableCell>
                       <TableCell align="left">{row.team}</TableCell>

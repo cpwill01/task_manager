@@ -7,4 +7,10 @@ export default makeStyles((theme) => ({
     pr: { xs: 1, sm: 1 },
     backgroundColor: alpha(theme.palette.primary.main, 0.2),
   },
+  barTitle: {
+    flex: "1 1 100%",
+    fontSize: "1.2rem",
+    component: "div",
+    align: "left",
+  },
 }));
