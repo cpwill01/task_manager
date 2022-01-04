@@ -10,6 +10,10 @@ const taskSchema = mongoose.Schema({
     type: Date,
     default: new Date(),
   },
+  isCompleted: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const TaskItem = mongoose.model("TaskItem", taskSchema);

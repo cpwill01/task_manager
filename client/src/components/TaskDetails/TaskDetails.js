@@ -13,7 +13,7 @@ import {
 import { useDispatch } from "react-redux";
 
 import useCommonStyles from "../styles";
-import { deleteTask } from "../../actions/TaskAction";
+import { deleteTask, toggleCompleteTask } from "../../actions/TaskAction";
 
 const TaskDetails = ({ selected, setSelected, setCurrentId }) => {
   const commonClasses = useCommonStyles();
@@ -23,6 +23,13 @@ const TaskDetails = ({ selected, setSelected, setCurrentId }) => {
     dispatch(deleteTask(selected._id));
     setSelected([]);
   };
+
+  const handleToggleComplete = () => {
+    dispatch(toggleCompleteTask(selected._id));
+    console.log(selected);
+    setSelected([]);
+  };
+
   return selected.length !== 0 ? (
     <Box sx={{ minWidth: 275 }}>
       <Toolbar className={commonClasses.topBar}>
@@ -61,8 +68,15 @@ const TaskDetails = ({ selected, setSelected, setCurrentId }) => {
               >
                 Edit this task
               </Button>
-              <Button size="small" variant="outlined" color="success">
-                Mark as Completed
+              <Button
+                size="small"
+                variant="outlined"
+                color="success"
+                onClick={handleToggleComplete}
+              >
+                {selected.isCompleted
+                  ? "Mark as Incomplete"
+                  : "Mark as Completed"}
               </Button>
               <Button
                 size="small"

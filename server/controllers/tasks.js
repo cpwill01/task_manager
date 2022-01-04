@@ -46,3 +46,18 @@ export const deleteTask = async (req, res) => {
 
   res.json({ message: "Post deleted successfully" });
 };
+
+export const toggleCompleteTask = async (req, res) => {
+  const { id } = req.params;
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).send("No such task found.");
+  }
+  const task = await TaskItem.findById(id);
+  const updatedTask = await TaskItem.findByIdAndUpdate(
+    id,
+    { isCompleted: !task.isCompleted },
+    { new: true }
+  );
+
+  res.json(updatedTask);
+};
