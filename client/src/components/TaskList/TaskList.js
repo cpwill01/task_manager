@@ -175,9 +175,11 @@ export default function TaskList({ selected, setSelected }) {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
+  const commonClasses = useCommonStyles();
+
   return (
     <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
+      <Paper className={commonClasses.paper} elevation={2}>
         <EnhancedTableToolbar />
         <TableContainer>
           <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">

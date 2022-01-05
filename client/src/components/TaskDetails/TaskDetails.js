@@ -6,7 +6,7 @@ import {
   Card,
   CardContent,
   CardActions,
-  Box,
+  Paper,
   Toolbar,
   Grid,
 } from "@mui/material";
@@ -31,7 +31,7 @@ const TaskDetails = ({ selected, setSelected, setCurrentId }) => {
   };
 
   return selected.length !== 0 ? (
-    <Box sx={{ minWidth: 275 }}>
+    <Paper className={commonClasses.paper} elevation={2}>
       <Toolbar className={commonClasses.topBar}>
         {
           <Typography className={commonClasses.barTitle} id="taskDetailText">
@@ -106,9 +106,9 @@ const TaskDetails = ({ selected, setSelected, setCurrentId }) => {
           </Grid>
         </Grid>
       </Card>
-    </Box>
+    </Paper>
   ) : (
-    <Box sx={{ minWidth: 275 }}>
+    <Paper className={commonClasses.paper} elevation={2}>
       <Toolbar className={commonClasses.topBar}>
         {
           <Typography className={commonClasses.barTitle} id="taskDetailText">
@@ -123,7 +123,7 @@ const TaskDetails = ({ selected, setSelected, setCurrentId }) => {
           </Typography>
         </CardContent>
       </Card>
-    </Box>
+    </Paper>
   );
 };
 

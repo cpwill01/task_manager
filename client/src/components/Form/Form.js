@@ -9,7 +9,6 @@ import {
   InputLabel,
   FormControl,
   Toolbar,
-  Box,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import useFormStyles from "./FormStyles";
@@ -62,7 +61,7 @@ const Form = ({ currentId, setCurrentId, setSelected }) => {
   };
 
   return (
-    <Paper height="100%">
+    <Paper className={commonClasses.paper} elevation={2}>
       <Toolbar className={commonClasses.topBar}>
         <Typography className={commonClasses.barTitle} id="formTitleText">
           {currentId ? "Updating " : "Add "}a task
@@ -136,6 +135,7 @@ const Form = ({ currentId, setCurrentId, setSelected }) => {
           variant="contained"
           color="primary"
           size="large"
+          shape={"square"}
           type="submit"
           fullWidth
         >
