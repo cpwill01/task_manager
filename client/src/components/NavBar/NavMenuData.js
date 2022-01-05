@@ -6,17 +6,17 @@ const NavMenuData = [
   {
     title: "Ongoing Tasks",
     path: "/",
-    icon: AssignmentLateIcon,
+    icon: <AssignmentLateIcon />,
   },
   {
     title: "Completed Tasks",
     path: "/completed",
-    icon: AssignmentTurnedInIcon,
+    icon: <AssignmentTurnedInIcon />,
   },
   {
     title: "Teams",
     path: "/teams",
-    icon: GroupsIcon,
+    icon: <GroupsIcon />,
   },
 ];
 export default NavMenuData;

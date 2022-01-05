@@ -17,7 +17,6 @@ import {
   IconButton,
   Tooltip,
 } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 
@@ -133,29 +132,27 @@ const EnhancedTableToolbar = () => {
 
   return (
     <Toolbar className={commonClasses.topBar}>
-      {
-        <Typography className={commonClasses.barTitle} id="tableTitle">
-          Task List
-        </Typography>
-      }
-      {
-        <Tooltip title="Filter list">
-          <IconButton>
-            <FilterListIcon />
-          </IconButton>
-        </Tooltip>
-      }
+      <Typography className={commonClasses.barTitle} id="tableTitle">
+        Task List
+      </Typography>
+      <Tooltip title="Filter list">
+        <IconButton>
+          <FilterListIcon />
+        </IconButton>
+      </Tooltip>
     </Toolbar>
   );
 };
 
-export default function TaskList({ selected, setSelected }) {
+export default function TaskList({ isCompleted, setSelected }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("createdAt");
   const [page, setPage] = React.useState(0);
   const dense = false;
   const rowsPerPage = 4;
-  const rows = useSelector((state) => state.tasksReducer);
+  const rows = useSelector((state) =>
+    state.tasksReducer.filter((task) => task.isCompleted === isCompleted)
+  );
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -180,7 +177,7 @@ export default function TaskList({ selected, setSelected }) {
   return (
     <Box sx={{ width: "100%" }}>
       <Paper className={commonClasses.paper} elevation={2}>
-        <EnhancedTableToolbar />
+        <EnhancedTableToolbar showCompleted={isCompleted} />
         <TableContainer>
           <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
             <EnhancedTableHead

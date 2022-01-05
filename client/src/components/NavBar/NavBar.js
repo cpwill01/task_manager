@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 import NavMenuData from "./NavMenuData";
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar({ titleText }) {
   const [sideBar, setSideBar] = useState(false);
   const classes = useStyles();
 
@@ -39,7 +39,7 @@ export default function ButtonAppBar() {
               <li key={index} className={classes.navText}>
                 <Link to={item.path} onClick={showSideBar}>
                   <Typography className={classes.pageName} variant="h6">
-                    {item.title}
+                    {item.icon} {item.title}
                   </Typography>
                 </Link>
               </li>
@@ -47,7 +47,7 @@ export default function ButtonAppBar() {
           </ul>
         </nav>
         <Typography className={classes.pageName} variant="h6">
-          Task Manager
+          {titleText}
         </Typography>
         <Button color="inherit">Logout</Button>
       </Toolbar>

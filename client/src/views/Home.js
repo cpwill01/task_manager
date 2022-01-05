@@ -33,7 +33,7 @@ const Home = () => {
         />
       </Grid>
       <Grid item xs={12} md={8} height={"100%"} className={classes.gridItem}>
-        <TaskList selected={selected} setSelected={setSelected} />
+        <TaskList isCompleted={false} setSelected={setSelected} />
       </Grid>
       <Grid item xs={12} height={"100%"} className={classes.gridItem}>
         <TaskDetails

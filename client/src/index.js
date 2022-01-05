@@ -11,6 +11,7 @@ import App from "./App";
 const store = createStore(reducers, compose(applyMiddleware(thunk)));
 
 document.body.style.margin = 0;
+document.body.style.overflowY = "scroll";
 
 ReactDOM.render(
   <Provider store={store}>

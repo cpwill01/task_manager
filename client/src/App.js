@@ -15,7 +15,7 @@ const App = () => {
             path="/"
             element={
               <>
-                <NavBar />
+                <NavBar titleText="Ongoing Tasks" />
                 <Home />
               </>
             }
@@ -24,7 +24,7 @@ const App = () => {
             path="/completed"
             element={
               <>
-                <NavBar />
+                <NavBar titleText="Completed Tasks" />
                 <Completed />
               </>
             }
@@ -33,7 +33,7 @@ const App = () => {
             path="/teams"
             element={
               <>
-                <NavBar />
+                <NavBar titleText="Teams" />
                 <Teams />
               </>
             }
