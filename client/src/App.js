@@ -5,6 +5,7 @@ import NavBar from "./components/NavBar/NavBar";
 import Home from "./views/Home";
 import Completed from "./views/Completed";
 import Teams from "./views/Teams";
+import Auth from "./views/Auth";
 
 const App = () => {
   return (
@@ -17,6 +18,15 @@ const App = () => {
               <>
                 <NavBar titleText="Ongoing Tasks" />
                 <Home />
+              </>
+            }
+          />
+          <Route
+            path="/auth"
+            element={
+              <>
+                <NavBar titleText="Welcome to the task manager" isLoginPage />
+                <Auth />
               </>
             }
           />

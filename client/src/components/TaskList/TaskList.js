@@ -1,33 +1,48 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
-import {
-  Box,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TablePagination,
-  TableRow,
-  TableSortLabel,
-  Toolbar,
-  Typography,
-  Paper,
-  IconButton,
-  Tooltip,
-} from "@mui/material";
+import Box from "@mui/material/Box";
+import Table from "@mui/material/Table";
+import TableBody from "@mui/material/TableBody";
+import TableCell from "@mui/material/TableCell";
+import TableContainer from "@mui/material/TableContainer";
+import TableHead from "@mui/material/TableHead";
+import TablePagination from "@mui/material/TablePagination";
+import TableRow from "@mui/material/TableRow";
+import TableSortLabel from "@mui/material/TableSortLabel";
+import Toolbar from "@mui/material/Toolbar";
+import Typography from "@mui/material/Typography";
+import Paper from "@mui/material/Paper";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
 
 import useCommonStyles from "../styles";
 
 function descendingComparator(a, b, orderBy) {
-  if (b[orderBy] < a[orderBy]) {
-    return -1;
-  }
-  if (b[orderBy] > a[orderBy]) {
-    return 1;
+  if (orderBy === "priority") {
+    if (
+      (b[orderBy] === "Low" &&
+        (a[orderBy] === "High" || a[orderBy] === "Medium")) ||
+      (b[orderBy] === "Medium" && a[orderBy] === "High")
+    ) {
+      return -1;
+    }
+    if (
+      (b[orderBy] === "High" &&
+        (a[orderBy] === "Low" || a[orderBy] === "Medium")) ||
+      (b[orderBy] === "Medium" && a[orderBy] === "Low")
+    ) {
+      return 1;
+    }
+  } else {
+    if (b[orderBy] < a[orderBy]) {
+      return -1;
+    }
+    if (b[orderBy] > a[orderBy]) {
+      return 1;
+    }
   }
   return 0;
 }
@@ -86,7 +101,7 @@ const headCells = [
 ];
 
 function EnhancedTableHead(props) {
-  const { order, orderBy, rowCount, onRequestSort } = props;
+  const { order, orderBy, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -124,7 +139,6 @@ EnhancedTableHead.propTypes = {
   onRequestSort: PropTypes.func.isRequired,
   order: PropTypes.oneOf(["asc", "desc"]).isRequired,
   orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
 };
 
 const EnhancedTableToolbar = () => {
@@ -148,8 +162,7 @@ export default function TaskList({ isCompleted, setSelected }) {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("createdAt");
   const [page, setPage] = React.useState(0);
-  const dense = false;
-  const rowsPerPage = 4;
+  const rowsPerPage = 8;
   const rows = useSelector((state) =>
     state.tasksReducer.filter((task) => task.isCompleted === isCompleted)
   );
@@ -179,12 +192,15 @@ export default function TaskList({ isCompleted, setSelected }) {
       <Paper className={commonClasses.paper} elevation={2}>
         <EnhancedTableToolbar showCompleted={isCompleted} />
         <TableContainer>
-          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
+          <Table
+            sx={{ minWidth: 750 }}
+            aria-labelledby="tableTitle"
+            size="small"
+          >
             <EnhancedTableHead
               order={order}
               orderBy={orderBy}
               onRequestSort={handleRequestSort}
-              rowCount={rows.length}
             />
             <TableBody>
               {stableSort(rows, getComparator(order, orderBy))
@@ -195,14 +211,16 @@ export default function TaskList({ isCompleted, setSelected }) {
                       hover
                       onClick={(event) => handleClick(event, row)}
                       tabIndex={-1}
-                      key={row.title}
+                      key={row._id}
                     >
                       <TableCell component="th" scope="row" padding="normal">
                         {row.title}
                       </TableCell>
                       <TableCell align="left">{row.team}</TableCell>
                       <TableCell align="left">{row.creator}</TableCell>
-                      <TableCell align="left">{row.createdAt}</TableCell>
+                      <TableCell align="left">
+                        {row.createdAt.slice(0, 10)}
+                      </TableCell>
                       <TableCell align="left">{row.priority}</TableCell>
                     </TableRow>
                   );
@@ -210,7 +228,7 @@ export default function TaskList({ isCompleted, setSelected }) {
               {emptyRows > 0 && (
                 <TableRow
                   style={{
-                    height: (dense ? 33 : 53) * emptyRows,
+                    height: 33 * emptyRows,
                   }}
                 >
                   <TableCell colSpan={6} />
