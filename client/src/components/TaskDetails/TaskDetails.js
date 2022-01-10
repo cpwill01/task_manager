@@ -26,7 +26,6 @@ const TaskDetails = ({ selected, setSelected, setCurrentId }) => {
 
   const handleToggleComplete = () => {
     dispatch(toggleCompleteTask(selected._id));
-    console.log(selected);
     setSelected([]);
   };
 
@@ -48,7 +47,7 @@ const TaskDetails = ({ selected, setSelected, setCurrentId }) => {
                 color="text.secondary"
                 gutterBottom
               >
-                {selected.createdAt}
+                {selected.createdAt.slice(0, 10)}
               </Typography>
               <Typography variant="h5" component="div">
                 {selected.title}

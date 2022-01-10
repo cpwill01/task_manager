@@ -1,7 +1,7 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 export default makeStyles((theme) => ({
-  navMenu: {
+  sideMenu: {
     height: "100vh",
     display: "flex",
     width: "250px",
@@ -12,7 +12,7 @@ export default makeStyles((theme) => ({
     left: "-100%",
     transition: "850ms",
   },
-  navMenuActive: {
+  sideMenuActive: {
     background: "white",
     height: "100vh",
     display: "flex",
@@ -32,18 +32,11 @@ export default makeStyles((theme) => ({
     padding: "8px 0px 8px 16px",
     height: "60px",
   },
-  navMenuItems: {
+  sideMenuItems: {
     width: "100%",
   },
-  closeNavBarIcon: {
-    size: "large",
-    edge: "start",
+  closeSideBarIcon: {
     color: "black",
-  },
-  navBarIcon: {
-    size: "large",
-    edge: "start",
-    marginRight: 2,
   },
   pageName: {
     flexGrow: 1,

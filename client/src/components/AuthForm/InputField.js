@@ -29,7 +29,7 @@ const InputField = (props) => {
           name === "password" || name === "confirmPassword"
             ? {
                 endAdornment: (
-                  <InputAdornment>
+                  <InputAdornment position="end">
                     <IconButton onClick={handleShowPassword}>
                       {type === "password" ? (
                         <VisibilityIcon />

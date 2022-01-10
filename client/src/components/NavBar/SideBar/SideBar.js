@@ -14,19 +14,14 @@ export default function SideBar() {
   const showSideBar = () => setSideBar(!sideBar);
   return (
     <>
-      <IconButton
-        className={classes.navBarIcon}
-        aria-label="menu"
-        color="inherit"
-        onClick={showSideBar}
-      >
+      <IconButton aria-label="menu" color="inherit" onClick={showSideBar}>
         <MenuIcon />
       </IconButton>
-      <nav className={sideBar ? classes.navMenuActive : classes.navMenu}>
-        <ul className={classes.navMenuItems}>
+      <nav className={sideBar ? classes.sideMenuActive : classes.sideMenu}>
+        <ul className={classes.sideMenuItems}>
           <li>
             <IconButton
-              className={classes.closeNavBarIcon}
+              className={classes.closeSideBarIcon}
               aria-label="closeMenu"
               onClick={showSideBar}
             >

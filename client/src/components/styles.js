@@ -15,8 +15,5 @@ export default makeStyles((theme) => ({
   },
   barTitle: {
     flex: "1 1 100%",
-    fontSize: "1.2rem",
-    component: "div",
-    align: "left",
   },
 }));

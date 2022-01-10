@@ -5,12 +5,10 @@ export default makeStyles((theme) => ({
     height: "124px",
     display: "flex",
     position: "relative",
-    flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "left",
     background: "linear-gradient(45deg, #7ec9ec 50%, #4b76ec 70% 100%)",
   },
-  toolBar: {
+  innerBar: {
     justifyContent: "space-between",
   },
   profileContainer: {
@@ -29,6 +27,7 @@ export default makeStyles((theme) => ({
   },
   pageName: {
     flexGrow: 1,
+    color: "white",
   },
   leftContainer: {
     display: "flex",

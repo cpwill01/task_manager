@@ -1,5 +1,11 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import React, { useState } from "react";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  Navigate,
+  Outlet,
+} from "react-router-dom";
 
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./views/Home";
@@ -8,25 +14,35 @@ import Teams from "./views/Teams";
 import Auth from "./views/Auth";
 
 const App = () => {
+  function PrivateRoute() {
+    const user = JSON.parse(localStorage.getItem("profile"));
+    return user ? <Outlet /> : <Navigate replace to="/auth" />;
+  }
+  function GuestRoute() {
+    const user = JSON.parse(localStorage.getItem("profile"));
+    return user ? <Navigate replace to="/" /> : <Outlet />;
+  }
   return (
-    <div>
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <>
-                <NavBar titleText="Ongoing Tasks" />
-                <Home />
-              </>
-            }
-          />
+    <BrowserRouter>
+      <Routes>
+        <Route element={<GuestRoute />}>
           <Route
             path="/auth"
             element={
               <>
                 <NavBar titleText="Welcome to the task manager" isLoginPage />
                 <Auth />
+              </>
+            }
+          />
+        </Route>
+        <Route element={<PrivateRoute />}>
+          <Route
+            path="/"
+            element={
+              <>
+                <NavBar titleText="Ongoing Tasks" />
+                <Home />
               </>
             }
           />
@@ -48,9 +64,10 @@ const App = () => {
               </>
             }
           />
-        </Routes>
-      </BrowserRouter>
-    </div>
+        </Route>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    </BrowserRouter>
   );
 };
 

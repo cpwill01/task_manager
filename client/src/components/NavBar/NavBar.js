@@ -16,8 +16,8 @@ export default function NavBar({ titleText, isLoginPage }) {
 
   const logout = () => {
     dispatch({ type: LOGOUT });
-    navigate("/auth");
     setUser(null);
+    navigate("/auth");
   };
 
   useEffect(() => {
@@ -26,7 +26,7 @@ export default function NavBar({ titleText, isLoginPage }) {
 
   return (
     <AppBar className={classes.appBar} position="static">
-      <Toolbar className={classes.toolBar}>
+      <Toolbar className={classes.innerBar}>
         {isLoginPage ? (
           <>
             <Typography className={classes.pageName} variant="h6">

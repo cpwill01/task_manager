@@ -15,7 +15,4 @@ export default makeStyles((theme) => ({
     flexWrap: "wrap",
     justifyContent: "center",
   },
-  buttonSubmit: {
-    marginBottom: 10,
-  },
 }));

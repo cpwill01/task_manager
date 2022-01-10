@@ -136,7 +136,6 @@ const TaskForm = ({ currentId, setCurrentId, setSelected }) => {
             </Select>
           </FormControl>
           <Button
-            className={formClasses.buttonSubmit}
             variant="contained"
             color="primary"
             size="large"
