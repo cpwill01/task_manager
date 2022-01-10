@@ -26,19 +26,21 @@ const InputField = (props) => {
         autoFocus={autoFocus}
         type={type}
         InputProps={
-          (name === "password" || name === "confirmPassword") && {
-            endAdornment: (
-              <InputAdornment>
-                <IconButton onClick={handleShowPassword}>
-                  {type === "password" ? (
-                    <VisibilityIcon />
-                  ) : (
-                    <VisibilityOffIcon />
-                  )}
-                </IconButton>
-              </InputAdornment>
-            ),
-          }
+          name === "password" || name === "confirmPassword"
+            ? {
+                endAdornment: (
+                  <InputAdornment>
+                    <IconButton onClick={handleShowPassword}>
+                      {type === "password" ? (
+                        <VisibilityIcon />
+                      ) : (
+                        <VisibilityOffIcon />
+                      )}
+                    </IconButton>
+                  </InputAdornment>
+                ),
+              }
+            : null
         }
       />
     </Grid>

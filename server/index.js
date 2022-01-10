@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 import cors from "cors";
 import dotenv from "dotenv";
 import taskRoutes from "./routes/tasks.js";
-import { appendFileSync } from "fs";
 
 const app = express();
 dotenv.config({ path: "./mongo.env" });

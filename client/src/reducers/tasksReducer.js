@@ -4,7 +4,7 @@ import {
   UPDATE,
   DELETE,
   TOGGLE_COMPLETE,
-} from "../constants/actionTypes";
+} from "../constants/ActionTypes";
 
 export default (tasks = [], action) => {
   switch (action.type) {

@@ -4,7 +4,7 @@ import {
   UPDATE,
   DELETE,
   TOGGLE_COMPLETE,
-} from "../constants/actionTypes";
+} from "../constants/ActionTypes";
 import * as api from "../api";
 
 // Action Creators

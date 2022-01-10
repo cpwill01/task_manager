@@ -1,21 +1,32 @@
-import React, { useState } from "react";
-import { AppBar, Toolbar, Typography, Button, IconButton } from "@mui/material";
-import MenuIcon from "@mui/icons-material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { AppBar, Toolbar, Typography, Avatar, Button } from "@mui/material";
+
 import useStyles from "./NavBarStyles";
-import { Link } from "react-router-dom";
+import { LOGOUT } from "../../constants/ActionTypes";
+import SideBar from "./SideBar/SideBar";
 
-import NavMenuData from "./NavMenuData";
-
-export default function ButtonAppBar({ titleText, isLoginPage }) {
-  const [sideBar, setSideBar] = useState(false);
+export default function NavBar({ titleText, isLoginPage }) {
+  const [user, setUser] = useState(null);
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const showSideBar = () => setSideBar(!sideBar);
+  const logout = () => {
+    dispatch({ type: LOGOUT });
+    navigate("/auth");
+    setUser(null);
+  };
+
+  useEffect(() => {
+    setUser(JSON.parse(localStorage.getItem("profile")));
+  }, [location]);
 
   return (
     <AppBar className={classes.appBar} position="static">
-      <Toolbar>
+      <Toolbar className={classes.toolBar}>
         {isLoginPage ? (
           <>
             <Typography className={classes.pageName} variant="h6">
@@ -24,40 +35,27 @@ export default function ButtonAppBar({ titleText, isLoginPage }) {
           </>
         ) : (
           <>
-            <IconButton
-              className={classes.navBarIcon}
-              aria-label="menu"
-              color="inherit"
-              onClick={showSideBar}
-            >
-              <MenuIcon />
-            </IconButton>
-            <nav className={sideBar ? classes.navMenuActive : classes.navMenu}>
-              <ul className={classes.navMenuItems}>
-                <li>
-                  <IconButton
-                    className={classes.claseNavBarIcon}
-                    aria-label="closeMenu"
-                    onClick={showSideBar}
-                  >
-                    <CloseIcon />
-                  </IconButton>
-                </li>
-                {NavMenuData.map((item, index) => (
-                  <li key={index} className={classes.navText}>
-                    <Link to={item.path} onClick={showSideBar}>
-                      <Typography className={classes.pageName} variant="h6">
-                        {item.icon} {item.title}
-                      </Typography>
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </nav>
-            <Typography className={classes.pageName} variant="h6">
-              {titleText}
-            </Typography>
-            <Button color="inherit">Logout</Button>
+            <div className={classes.leftContainer}>
+              <SideBar />
+              <Typography className={classes.pageName} variant="h6">
+                {titleText}
+              </Typography>
+            </div>
+            <div className={classes.profileContainer}>
+              <Avatar
+                className={classes.avatarIcon}
+                alt={user?.result.name}
+                src={user?.result.imageUrl}
+              >
+                {user?.result.name.charAt(0)}
+              </Avatar>
+              <Typography className={classes.userName} variant="h6">
+                {user?.result.name}
+              </Typography>
+              <Button variant="contained" color="secondary" onClick={logout}>
+                Logout
+              </Button>
+            </div>
           </>
         )}
       </Toolbar>
