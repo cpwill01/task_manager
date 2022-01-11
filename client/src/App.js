@@ -1,31 +1,19 @@
-import React, { useState } from "react";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  Outlet,
-} from "react-router-dom";
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./views/Home";
 import Completed from "./views/Completed";
 import Teams from "./views/Teams";
 import Auth from "./views/Auth";
+import { USER, GUEST } from "./constants/AuthLevels";
+import AuthRoute from "./helpers/AuthRoute";
 
 const App = () => {
-  function PrivateRoute() {
-    const user = JSON.parse(localStorage.getItem("profile"));
-    return user ? <Outlet /> : <Navigate replace to="/auth" />;
-  }
-  function GuestRoute() {
-    const user = JSON.parse(localStorage.getItem("profile"));
-    return user ? <Navigate replace to="/" /> : <Outlet />;
-  }
   return (
     <BrowserRouter>
       <Routes>
-        <Route element={<GuestRoute />}>
+        <Route element={<AuthRoute type={GUEST} />}>
           <Route
             path="/auth"
             element={
@@ -36,7 +24,7 @@ const App = () => {
             }
           />
         </Route>
-        <Route element={<PrivateRoute />}>
+        <Route element={<AuthRoute type={USER} />}>
           <Route
             path="/"
             element={
@@ -65,7 +53,6 @@ const App = () => {
             }
           />
         </Route>
-        <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </BrowserRouter>
   );
