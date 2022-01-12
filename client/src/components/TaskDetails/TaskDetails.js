@@ -15,9 +15,13 @@ import { useDispatch } from "react-redux";
 import useCommonStyles from "../styles";
 import { deleteTask, toggleCompleteTask } from "../../actions/TaskAction";
 
-const TaskDetails = ({ selected, setSelected, setCurrentId }) => {
+const TaskDetails = ({ selected, setSelected, setCurrentId, isCompleted }) => {
   const commonClasses = useCommonStyles();
   const dispatch = useDispatch();
+
+  const handleEdit = () => {
+    setCurrentId(selected._id);
+  };
 
   const handleDelete = () => {
     dispatch(deleteTask(selected._id));
@@ -26,6 +30,7 @@ const TaskDetails = ({ selected, setSelected, setCurrentId }) => {
 
   const handleToggleComplete = () => {
     dispatch(toggleCompleteTask(selected._id));
+    setCurrentId(null);
     setSelected([]);
   };
 
@@ -53,20 +58,16 @@ const TaskDetails = ({ selected, setSelected, setCurrentId }) => {
                 {selected.title}
               </Typography>
               <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                created by {selected.creator}
+                created by {selected.name}
               </Typography>
               <Typography variant="body2">{selected.description}</Typography>
             </CardContent>
             <CardActions>
-              <Button
-                size="small"
-                variant="outlined"
-                onClick={() => {
-                  setCurrentId(selected._id);
-                }}
-              >
-                Edit this task
-              </Button>
+              {!isCompleted && (
+                <Button size="small" variant="outlined" onClick={handleEdit}>
+                  Edit this task
+                </Button>
+              )}
               <Button
                 size="small"
                 variant="outlined"

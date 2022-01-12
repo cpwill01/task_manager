@@ -12,7 +12,7 @@ export const getTasks = async (req, res) => {
 
 export const createTask = async (req, res) => {
   const task = req.body;
-  const newTask = new TaskItem(task);
+  const newTask = new TaskItem({ ...task, creator: req.userId });
 
   try {
     await newTask.save();

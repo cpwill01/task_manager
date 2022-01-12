@@ -81,7 +81,7 @@ const headCells = [
     label: "Team",
   },
   {
-    id: "creator",
+    id: "name",
     numeric: false,
     disablePadding: false,
     label: "Created by",
@@ -217,7 +217,7 @@ export default function TaskList({ isCompleted, setSelected }) {
                         {row.title}
                       </TableCell>
                       <TableCell align="left">{row.team}</TableCell>
-                      <TableCell align="left">{row.creator}</TableCell>
+                      <TableCell align="left">{row.name}</TableCell>
                       <TableCell align="left">
                         {row.createdAt.slice(0, 10)}
                       </TableCell>

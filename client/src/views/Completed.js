@@ -32,6 +32,7 @@ const Completed = () => {
           selected={selected}
           setSelected={setSelected}
           setCurrentId={setCurrentId}
+          isCompleted
         />
       </Grid>
     </Grid>

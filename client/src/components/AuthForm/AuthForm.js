@@ -16,15 +16,32 @@ import { GoogleLogin } from "react-google-login";
 import InputField from "./InputField";
 import { AUTH } from "../../constants/ActionTypes";
 import useStyles from "./AuthFormStyles";
+import { signIn, signUp } from "../../actions/AuthAction";
+
+const initialState = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  password: "",
+  confirmPassword: "",
+};
 
 const AuthForm = () => {
   const classes = useStyles();
   const [showPassword, setShowPassword] = useState(false);
   const [isSignUp, setIsSignUp] = useState(false);
+  const [formData, setFormData] = useState(initialState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleSubmit = () => {};
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (isSignUp) {
+      dispatch(signUp(formData, navigate));
+    } else {
+      dispatch(signIn(formData, navigate));
+    }
+  };
 
   const handleShowPassword = () =>
     setShowPassword((prevShowPassword) => !prevShowPassword);
@@ -34,7 +51,9 @@ const AuthForm = () => {
     setShowPassword(false);
   };
 
-  const handleChange = () => {};
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const googleLoginRender = (renderProps) => (
     <Button

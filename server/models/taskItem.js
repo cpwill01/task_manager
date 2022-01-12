@@ -1,11 +1,12 @@
 import mongoose from "mongoose";
 
 const taskSchema = mongoose.Schema({
-  title: String,
+  title: { type: String, required: true },
   description: String,
-  creator: String,
-  team: String,
-  priority: String,
+  name: { type: String, required: true },
+  creator: { type: String, required: true },
+  team: { type: String, required: true },
+  priority: { type: String, required: true },
   createdAt: {
     type: Date,
     default: new Date(),

@@ -19,7 +19,6 @@ const TaskForm = ({ currentId, setCurrentId, setSelected }) => {
   const [taskData, setTaskData] = useState({
     title: "",
     description: "",
-    creator: "",
     team: "",
     priority: "",
     createdAt: "",
@@ -30,6 +29,7 @@ const TaskForm = ({ currentId, setCurrentId, setSelected }) => {
     currentId ? state.tasksReducer.find((t) => t._id === currentId) : null
   );
   const dispatch = useDispatch();
+  const user = JSON.parse(localStorage.getItem("profile"));
 
   useEffect(() => {
     if (task) {
@@ -42,20 +42,26 @@ const TaskForm = ({ currentId, setCurrentId, setSelected }) => {
     setTaskData({
       title: "",
       description: "",
-      creator: "",
       team: "",
       priority: "",
       createdAt: "",
     });
   };
+
+  const handleChange = (e) => {
+    setTaskData({ ...taskData, [e.target.name]: e.target.value });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (currentId) {
-      dispatch(updateTask(currentId, taskData));
+      dispatch(
+        updateTask(currentId, { ...taskData, name: user?.result?.name })
+      );
       setSelected([]);
     } else {
       taskData.createdAt = new Date();
-      dispatch(createTask(taskData));
+      dispatch(createTask({ ...taskData, name: user?.result?.name }));
     }
     clear();
   };
@@ -69,6 +75,7 @@ const TaskForm = ({ currentId, setCurrentId, setSelected }) => {
       </Toolbar>
       <Paper className={formClasses.paper} elevation={0}>
         <form
+          name="taskForm"
           autoComplete="off"
           noValidate
           className={`${formClasses.root}, ${formClasses.form}`}
@@ -76,24 +83,13 @@ const TaskForm = ({ currentId, setCurrentId, setSelected }) => {
           height="100%"
         >
           <TextField
-            name="creator"
-            variant="outlined"
-            label="Creator"
-            fullWidth
-            value={taskData.creator}
-            onChange={(e) =>
-              setTaskData({ ...taskData, creator: e.target.value })
-            }
-          />
-          <TextField
             name="title"
             variant="outlined"
             label="Title"
             fullWidth
+            required
             value={taskData.title}
-            onChange={(e) =>
-              setTaskData({ ...taskData, title: e.target.value })
-            }
+            onChange={handleChange}
           />
           <TextField
             name="description"
@@ -101,34 +97,28 @@ const TaskForm = ({ currentId, setCurrentId, setSelected }) => {
             label="Description"
             fullWidth
             value={taskData.description}
-            onChange={(e) =>
-              setTaskData({ ...taskData, description: e.target.value })
-            }
+            onChange={handleChange}
           />
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+          <FormControl required variant="standard" sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="team-label">Team</InputLabel>
             <Select
               labelId="team-label"
               name="team"
               value={taskData.team}
               label="Team"
-              onChange={(e) =>
-                setTaskData({ ...taskData, team: e.target.value })
-              }
+              onChange={handleChange}
             >
               <MenuItem value={"Just Me"}>Just Me</MenuItem>
             </Select>
           </FormControl>
-          <FormControl variant="standard" sx={{ m: 1, minWidth: 120 }}>
+          <FormControl required variant="standard" sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="priority-label">Priority</InputLabel>
             <Select
               labelId="priority-label"
               name="priority"
               value={taskData.priority}
               label="Priority"
-              onChange={(e) =>
-                setTaskData({ ...taskData, priority: e.target.value })
-              }
+              onChange={handleChange}
             >
               <MenuItem value={"Low"}>Low</MenuItem>
               <MenuItem value={"Medium"}>Medium</MenuItem>

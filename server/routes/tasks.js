@@ -7,13 +7,14 @@ import {
   deleteTask,
   toggleCompleteTask,
 } from "../controllers/tasks.js";
+import auth from "../middleware/auth.js";
 
 const router = express.Router();
 
-router.get("/", getTasks);
-router.post("/", createTask);
-router.patch("/:id", updateTask);
-router.delete("/:id", deleteTask);
-router.patch("/:id/toggleCompleteTask", toggleCompleteTask);
+router.get("/", auth, getTasks);
+router.post("/", auth, createTask);
+router.patch("/:id", auth, updateTask);
+router.delete("/:id", auth, deleteTask);
+router.patch("/:id/toggleCompleteTask", auth, toggleCompleteTask);
 
 export default router;
