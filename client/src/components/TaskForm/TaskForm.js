@@ -19,7 +19,6 @@ const TaskForm = ({ currentId, setCurrentId, setSelected }) => {
   const [taskData, setTaskData] = useState({
     title: "",
     description: "",
-    team: "",
     priority: "",
     createdAt: "",
   });
@@ -42,7 +41,6 @@ const TaskForm = ({ currentId, setCurrentId, setSelected }) => {
     setTaskData({
       title: "",
       description: "",
-      team: "",
       priority: "",
       createdAt: "",
     });
@@ -99,18 +97,6 @@ const TaskForm = ({ currentId, setCurrentId, setSelected }) => {
             value={taskData.description}
             onChange={handleChange}
           />
-          <FormControl required variant="standard" sx={{ m: 1, minWidth: 120 }}>
-            <InputLabel id="team-label">Team</InputLabel>
-            <Select
-              labelId="team-label"
-              name="team"
-              value={taskData.team}
-              label="Team"
-              onChange={handleChange}
-            >
-              <MenuItem value={"Just Me"}>Just Me</MenuItem>
-            </Select>
-          </FormControl>
           <FormControl required variant="standard" sx={{ m: 1, minWidth: 120 }}>
             <InputLabel id="priority-label">Priority</InputLabel>
             <Select

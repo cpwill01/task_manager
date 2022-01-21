@@ -13,10 +13,5 @@ const NavMenuData = [
     path: "/completed",
     icon: <AssignmentTurnedInIcon />,
   },
-  {
-    title: "Teams",
-    path: "/teams",
-    icon: <GroupsIcon />,
-  },
 ];
 export default NavMenuData;

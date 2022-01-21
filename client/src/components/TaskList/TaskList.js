@@ -75,12 +75,6 @@ const headCells = [
     label: "Task",
   },
   {
-    id: "team",
-    numeric: false,
-    disablePadding: false,
-    label: "Team",
-  },
-  {
     id: "name",
     numeric: false,
     disablePadding: false,
@@ -159,7 +153,7 @@ const EnhancedTableToolbar = () => {
 };
 
 export default function TaskList({ isCompleted, setSelected }) {
-  const [order, setOrder] = React.useState("asc");
+  const [order, setOrder] = React.useState("desc");
   const [orderBy, setOrderBy] = React.useState("createdAt");
   const [page, setPage] = React.useState(0);
   const rowsPerPage = 8;
@@ -216,7 +210,6 @@ export default function TaskList({ isCompleted, setSelected }) {
                       <TableCell component="th" scope="row" padding="normal">
                         {row.title}
                       </TableCell>
-                      <TableCell align="left">{row.team}</TableCell>
                       <TableCell align="left">{row.name}</TableCell>
                       <TableCell align="left">
                         {row.createdAt.slice(0, 10)}

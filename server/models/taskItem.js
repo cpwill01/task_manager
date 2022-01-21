@@ -5,7 +5,7 @@ const taskSchema = mongoose.Schema({
   description: String,
   name: { type: String, required: true },
   creator: { type: String, required: true },
-  team: { type: String, required: true },
+  team: { type: String, default: "Just Me" },
   priority: { type: String, required: true },
   createdAt: {
     type: Date,

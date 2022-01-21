@@ -4,7 +4,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 import Home from "./views/Home";
 import Completed from "./views/Completed";
-import Teams from "./views/Teams";
 import Auth from "./views/Auth";
 import { USER, GUEST } from "./constants/AuthLevels";
 import AuthRoute from "./helpers/AuthRoute";
@@ -40,15 +39,6 @@ const App = () => {
               <>
                 <NavBar titleText="Completed Tasks" />
                 <Completed />
-              </>
-            }
-          />
-          <Route
-            path="/teams"
-            element={
-              <>
-                <NavBar titleText="Teams" />
-                <Teams />
               </>
             }
           />
