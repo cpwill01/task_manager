@@ -1,6 +1,5 @@
 import AssignmentLateIcon from "@mui/icons-material/AssignmentLate";
 import AssignmentTurnedInIcon from "@mui/icons-material/AssignmentTurnedIn";
-import GroupsIcon from "@mui/icons-material/Groups";
 
 const NavMenuData = [
   {

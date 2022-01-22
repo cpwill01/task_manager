@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  TextField,
   Button,
   Typography,
   Card,
@@ -45,7 +44,7 @@ const TaskDetails = ({ selected, setSelected, setCurrentId, isCompleted }) => {
       </Toolbar>
       <Card variant="outlined">
         <Grid container spacing={0}>
-          <Grid item xs={12} md={5} height={"100%"}>
+          <Grid item xs={12} md={12} height={"100%"}>
             <CardContent>
               <Typography
                 sx={{ fontSize: 14 }}
@@ -85,22 +84,6 @@ const TaskDetails = ({ selected, setSelected, setCurrentId, isCompleted }) => {
                 onClick={handleDelete}
               >
                 Delete task
-              </Button>
-            </CardActions>
-          </Grid>
-          <Grid item xs={12} md={7} height={"100%"}>
-            <CardContent>
-              <Typography variant="h6" component="div">
-                Comments
-              </Typography>
-              <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                These are some comments by commentor.
-              </Typography>
-              <TextField></TextField>
-            </CardContent>
-            <CardActions>
-              <Button size="small" variant="outlined">
-                Post comment
               </Button>
             </CardActions>
           </Grid>

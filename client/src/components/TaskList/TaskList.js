@@ -156,7 +156,7 @@ export default function TaskList({ isCompleted, setSelected }) {
   const [order, setOrder] = React.useState("desc");
   const [orderBy, setOrderBy] = React.useState("createdAt");
   const [page, setPage] = React.useState(0);
-  const rowsPerPage = 8;
+  const rowsPerPage = 5;
   const rows = useSelector((state) =>
     state.tasksReducer.filter((task) => task.isCompleted === isCompleted)
   );
