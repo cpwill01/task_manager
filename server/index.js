@@ -16,6 +16,10 @@ app.use(cors());
 app.use("/tasks", taskRoutes);
 app.use("/users", userRoutes);
 
+app.get("/", (req, res) => {
+  res.send("Hello to Task Manager API");
+});
+
 const CONNECTION_URL = process.env.CONNECTION_STRING;
 const PORT = process.env.PORT || 5000;
 
