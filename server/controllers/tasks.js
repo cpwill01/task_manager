@@ -3,7 +3,7 @@ import TaskItem from "../models/taskItem.js";
 
 export const getTasks = async (req, res) => {
   try {
-    const taskItems = await TaskItem.find();
+    const taskItems = await TaskItem.find({ creator: req.userId });
     res.status(200).json(taskItems);
   } catch (error) {
     res.status(404).json({ message: error.message });
